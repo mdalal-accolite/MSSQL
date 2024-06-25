@@ -1,4 +1,4 @@
-robocopy  '\\172.20.32.12\Software\ansibleStaging\MSSQL Automation\2012'  'C:\MSSQL2012\'
+robocopy  '\\172.20.32.12\Software\ansibleStaging\MSSQL Automation\2019'  'C:\MSSQL2019\'
 robocopy  '\\172.20.32.12\Software\Software\Microsoft Software\SSMS' 'C:\SSMS\'
-C:\MSSQL2012\en_sql_server_2012_enterprise_edition_with_service_pack_4_x64_dvd_11444956.iso
-sllep -s 10
+Mount-DiskImage -ImagePath "C:\MSSQL2019\SW_DVD9_SQL_Svr_Enterprise_Edtn_2019Dec2019_64Bit_English_MLF_X22-22247.ISO"
+sllep -s 20
