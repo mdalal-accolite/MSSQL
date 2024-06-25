@@ -1,0 +1,34 @@
+---
+- hosts: windows
+  tasks:
+  - name: Create directory structure
+    win_file:
+      path: C:\MSSQL2014
+      path: C:\SSMS
+      state: directory
+
+  - name: Copy File
+    win_copy:
+      src: 'setupfiles/'
+      dest: C:\MSSQL2014\
+      remote_src: no
+
+  - name: Run remote PowerShell Script
+    win_command: powershell.exe -ExecutionPolicy ByPass -File C:\MSSQL2014\sqlconfig.ps1
+    
+  - name: Run multi-lined shell commands
+    win_shell: |
+        $configfile = "C:\MSSQL2014\configuration.ini"
+        $command = "E:\setup.exe /ConfigurationFile=$($configfile)"
+        Invoke-Expression -Command $command
+        
+
+        
+  - name: Run multi-lined shell commands
+    win_shell: |
+        Invoke-Sqlcmd -InputFile "C:\MSSQL2014\saenb.sql"
+        net stop MSSQL$SQL2014 /y
+        net start MSSQL$SQL2014
+        net start 'SQLAgent$SQL2014'
+        Restart-Computer -Force
+        
