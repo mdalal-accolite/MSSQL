@@ -24,9 +24,6 @@
                 
   - name: Run multi-lined shell commands
     win_shell: |
-        net stop 'MSSQL$SQL2022' /y
-        net start 'MSSQL$SQL2022'
-        net start 'SQLAgent$SQL2022'
         Invoke-Sqlcmd -ServerInstance hostname\SQL2022  -InputFile "C:\MSSQL2022\saenb.sql"
         
   - name: Run multi-lined shell commands
