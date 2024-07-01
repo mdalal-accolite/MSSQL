@@ -3,14 +3,14 @@
   tasks:
   - name: Create directory structure
     win_file:
-      path: C:\MSSQL2012
+      path: C:\MSSQL2022
       path: C:\SSMS
       state: directory
 
   - name: Copy File
     win_copy:
       src: 'setupfiles/'
-      dest: C:\MSSQL2012\
+      dest: C:\MSSQL2022\
       remote_src: no
 
   - name: Run remote PowerShell Script
@@ -18,16 +18,16 @@
     
   - name: Run multi-lined shell commands
     win_shell: |
-        $configfile = "C:\MSSQL2012\configuration.ini"
+        $configfile = "C:\MSSQL2022\configuration.ini"
         $command = "E:\setup.exe /ConfigurationFile=$($configfile)"
         Invoke-Expression -Command $command        
                 
   - name: Run multi-lined shell commands
     win_shell: |
-        net stop 'MSSQL$SQL2012' /y
-        net start 'MSSQL$SQL2012'
-        net start 'SQLAgent$SQL2012'
-        Invoke-Sqlcmd -ServerInstance hostname\SQL2012  -InputFile "C:\MSSQL2012\saenb.sql"
+        net stop 'MSSQL$SQL2022' /y
+        net start 'MSSQL$SQL2022'
+        net start 'SQLAgent$SQL2022'
+        Invoke-Sqlcmd -ServerInstance hostname\SQL2012  -InputFile "C:\MSSQL2022\saenb.sql"
         
   - name: Run multi-lined shell commands
     win_shell: |
