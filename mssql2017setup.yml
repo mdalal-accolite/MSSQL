@@ -29,6 +29,7 @@
         net stop 'SQLWriter'
         net start 'MSSQL$SQL2017'
         net start 'SQLAgent$SQL2017'
+        Invoke-Sqlcmd -ServerInstance hostname\SQL2017  -InputFile "C:\MSSQL2017\saenb.sql"
         
   - name: Run multi-lined shell commands
     win_shell: |
