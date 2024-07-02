@@ -25,11 +25,13 @@
   - name: Run multi-lined shell commands
     win_shell: |
         net stop 'MSSQL$SQL2019' /y
+        net stop 'SQLTELEMETRY$SQL2019'
+        net stop 'SQLWriter'
         net start 'MSSQL$SQL2019'
         net start 'SQLAgent$SQL2019'
         Invoke-Sqlcmd -ServerInstance hostname\SQL2019  -InputFile "C:\MSSQL2019\saenb.sql"
         
   - name: Run multi-lined shell commands
     win_shell: |
-        Start-Process C:\SSMS\SSMS-Setup-ENU-01.exe -ArgumentList '/install','/passive', '/promptrestart' -Wait        
+        Start-Process C:\SSMS\SSMS-Setup.exe -ArgumentList '/install','/passive', '/promptrestart' -Wait        
         Restart-Computer -Force
