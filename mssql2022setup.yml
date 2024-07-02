@@ -19,12 +19,14 @@
   - name: Run multi-lined shell commands
     win_shell: |
         $configfile = "C:\MSSQL2022\configuration.ini"
-        $command = "E:\setup.exe /ConfigurationFile=$($configfile)"
+        $command = "E:\setup.exe /Q /IACCEPTSQLSERVERLICENSETERMS /ConfigurationFile=$($configfile)"
         Invoke-Expression -Command $command        
                 
   - name: Run multi-lined shell commands
     win_shell: |
         net stop 'MSSQL$SQL2022' /y
+        net stop 'SQLTELEMETRY$SQL2022'
+        net stop 'SQLWriter'
         net start 'MSSQL$SQL2022'
         net start 'SQLAgent$SQL2022'
         Invoke-Sqlcmd -ServerInstance hostname\SQL2022  -InputFile "C:\MSSQL2022\saenb.sql"
